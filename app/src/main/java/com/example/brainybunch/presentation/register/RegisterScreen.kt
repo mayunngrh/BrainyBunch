@@ -154,8 +154,8 @@ fun RegisterScreen(
                             )
                         }
                         Spacer(modifier = Modifier.height(12.dp))
-
-
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(12.dp))
                     }
                 }
                 AsyncImage(
