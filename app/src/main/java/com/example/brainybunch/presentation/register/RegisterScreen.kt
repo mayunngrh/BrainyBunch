@@ -94,6 +94,7 @@ fun RegisterScreen(
                         //NAME FIELD
                         NameTextField(hint = "Name", onValueChange = { name = it }, value = name )
 
+
                         Spacer(modifier = Modifier.height(12.dp))
 
                         //EMAIL FIELD
@@ -152,6 +153,7 @@ fun RegisterScreen(
                                 fontWeight = FontWeight.Bold
                             )
                         }
+                        Spacer(modifier = Modifier.height(12.dp))
 
 
                     }
