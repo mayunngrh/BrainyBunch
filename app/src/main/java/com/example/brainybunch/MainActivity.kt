@@ -300,7 +300,7 @@ class MainActivity : ComponentActivity() {
                     NavHost(
                         modifier = Modifier.padding(it),
                         navController = navController,
-                        startDestination = "register"
+                        startDestination = "home"
                     ) {
                         composable("home") {
                             HomeScreen(navController = navController)
