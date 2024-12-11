@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.brainybunch.R
+import com.example.brainybunch.component.ArticleItem
 import com.example.brainybunch.component.FeatureCircle
 import com.example.brainybunch.component.TrackingWasteProgress
 
@@ -42,7 +44,8 @@ fun HomeScreen(
     Column(
         Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())) {
+            .verticalScroll(rememberScrollState())
+    ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -118,13 +121,25 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 //ITEM FEATURE 1
-                FeatureCircle(modifier = Modifier.weight(1f), model = R.drawable.icon_scan_feature, text = "Scan")
+                FeatureCircle(
+                    modifier = Modifier.weight(1f),
+                    model = R.drawable.icon_scan_feature,
+                    text = "Scan"
+                )
 
                 //ITEM FEATURE 2
-                FeatureCircle(modifier = Modifier.weight(1f), model = R.drawable.icon_track_feature, text = "Track")
+                FeatureCircle(
+                    modifier = Modifier.weight(1f),
+                    model = R.drawable.icon_track_feature,
+                    text = "Track"
+                )
 
                 //ITEM FEATURE 3
-                FeatureCircle(modifier = Modifier.weight(1f), model = R.drawable.icon_article_feature, text = "Article")
+                FeatureCircle(
+                    modifier = Modifier.weight(1f),
+                    model = R.drawable.icon_article_feature,
+                    text = "Article"
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -136,27 +151,21 @@ fun HomeScreen(
             )
 
             Spacer(modifier = Modifier.height(24.dp))
-            
+
             ///ARTICLE SECTIION
             Text(
                 text = "Article", style = MaterialTheme.typography.bodyMedium,
-                fontSize = 18.sp,
+                fontSize = 20.sp,
                 textAlign = TextAlign.Left,
                 fontWeight = FontWeight.Bold
             )
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            //ARTICLE ITEM
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .height(135.dp)){
-                Row(Modifier.fillMaxSize()) {
 
-                }
-            }
-            
-            
+            Spacer(modifier = Modifier.height(12.dp))
+
+            //ARTICLE ITEM
+            ArticleItem()
+            ArticleItem()
+            ArticleItem()
 
         }
     }
