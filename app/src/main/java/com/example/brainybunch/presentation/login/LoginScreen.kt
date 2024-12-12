@@ -132,9 +132,13 @@ fun LoginScreen(
 
                         Spacer(modifier = Modifier.height(12.dp))
 
-                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
                             Text(
-                                text = "Don't have any account?", style = MaterialTheme.typography.bodyMedium,
+                                text = "Don't have any account?",
+                                style = MaterialTheme.typography.bodyMedium,
                                 fontSize = 16.sp,
                                 textAlign = TextAlign.Center,
                                 color = Color.White,
@@ -143,7 +147,7 @@ fun LoginScreen(
                             Spacer(modifier = Modifier.width(2.dp))
                             Text(
                                 modifier = Modifier.clickable {
-                                                                             //NAVIIGATE TO REGISTER
+                                    navController.navigate("register")
                                 },
                                 text = "REGISTER", style = MaterialTheme.typography.bodyMedium,
                                 fontSize = 16.sp,
