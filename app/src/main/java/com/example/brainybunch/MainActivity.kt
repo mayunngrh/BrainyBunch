@@ -19,8 +19,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarDefaults
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -39,6 +44,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
+import com.example.brainybunch.component.BottomNavBar
 import com.example.brainybunch.presentation.article.ArticleScreen
 import com.example.brainybunch.presentation.community.CommunityScreen
 import com.example.brainybunch.presentation.home.HomeScreen
@@ -83,250 +89,56 @@ class MainActivity : ComponentActivity() {
             }
 
             BrainyBunchTheme(darkTheme = false) {
-                Scaffold(
-                    bottomBar = {
-                        if (mainViewModel.showBottomBar.value){
-                            BottomAppBar(
-                                modifier = Modifier.height(150.dp),
-                                containerColor = Color.Transparent
-                            ) {
-                                Row {
-                                    //ITEM 1
-                                    Box(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .height(180.dp)
-                                        ) {
-                                        Column {
-                                            Spacer(modifier = Modifier.height(36.dp))
+                Box(modifier = Modifier.fillMaxSize()){
 
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .background(
-                                                        if (mainViewModel.currentRoute.value == "home") Color(
-                                                            0xFF3F4E3E
-                                                        ) else Color.White
-                                                    )
-                                                    .clickable {
-                                                        navController.navigate("home")
-                                                    }
-                                                ,
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                                verticalArrangement = Arrangement.Center
-                                            )
-                                            {
-                                                Icon(
-                                                    modifier = Modifier.size(24.dp),
-                                                    painter = painterResource(id = R.drawable.icon_home),
-                                                    contentDescription = "Icon Beranda Bottom Bar",
-                                                    tint = if (mainViewModel.currentRoute.value == "home") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                                Text(
-                                                    text = "Home",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = if (mainViewModel.currentRoute.value == "home") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                            }
-                                        }
-                                    }
+                    Scaffold(containerColor = Color.Transparent,
+                        bottomBar = {
+                            BottomNavBar()
+                        }
+                    ) {
 
-                                    //ITEM 2
-                                    Box(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .height(180.dp)
-                                    ) {
-                                        Column {
-                                            Spacer(modifier = Modifier.height(36.dp))
+                        NavHost(
+                            modifier = Modifier.padding(it),
+                            navController = navController,
+                            startDestination = "home"
+                        ) {
+                            composable("home") {
+                                HomeScreen(navController = navController)
+                            }
+                            composable("login") {
+                                LoginScreen(navController = navController)
+                            }
 
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .background(
-                                                        if (mainViewModel.currentRoute.value == "scan") Color(
-                                                            0xFF3F4E3E
-                                                        ) else Color.White
-                                                    )
-                                                    .clickable {
-                                                        navController.navigate("scan")
-                                                    }
-                                                ,
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                                verticalArrangement = Arrangement.Center
-                                            )
-                                            {
-                                                Icon(
-                                                    modifier = Modifier.size(24.dp),
-                                                    painter = painterResource(id = R.drawable.icon_scan),
-                                                    contentDescription = "Icon Beranda Bottom Bar",
-                                                    tint = if (mainViewModel.currentRoute.value == "scan") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                                Text(
-                                                    text = "Scan",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = if (mainViewModel.currentRoute.value == "scan") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                            }
-                                        }
-                                    }
+                            composable("register") {
+                                RegisterScreen(navController = navController)
+                            }
+                            composable("scan") {
+                                ScanScreen(navController = navController)
+                            }
+                            composable("article") {
+                                ArticleScreen(navController = navController)
+                            }
+                            composable("community") {
+                                CommunityScreen(navController = navController)
+                            }
 
-                                    //ITEM 3
-                                    Box(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .height(180.dp)
-                                    ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .height(60.dp)
-                                                .align(Alignment.BottomCenter)
-                                                .background(
-                                                    if (mainViewModel.currentRoute.value == "track_bin") Color(
-                                                        0xFF3F4E3E
-                                                    ) else Color.White
-                                                )
-                                        )
-                                        Column {
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .clickable {
-                                                        navController.navigate("track_bin")
-                                                    }
-                                                ,
-                                                horizontalAlignment = Alignment.CenterHorizontally
-                                            )
-                                            {
-                                                AsyncImage(
-                                                    modifier = Modifier.size(75.dp),
-                                                    model = R.drawable.icon_track_bin,
-                                                    contentDescription = "Icon Beranda Bottom Bar",
-                                                )
-                                                Spacer(modifier = Modifier.height(4.dp))
-                                                Text(
-                                                    text = "Track Bin",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = if (mainViewModel.currentRoute.value == "track_bin") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                            }
-                                        }
-                                    }
-
-                                    //ITEM 4
-                                    Box(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .height(180.dp)
-                                    ) {
-                                        Column {
-                                            Spacer(modifier = Modifier.height(36.dp))
-
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .background(
-                                                        if (mainViewModel.currentRoute.value == "article") Color(
-                                                            0xFF3F4E3E
-                                                        ) else Color.White
-                                                    )
-                                                    .clickable {
-                                                        navController.navigate("article")
-                                                    }
-                                                ,
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                                verticalArrangement = Arrangement.Center
-                                            )
-                                            {
-                                                Icon(
-                                                    modifier = Modifier.size(24.dp),
-                                                    painter = painterResource(id = R.drawable.icon_article),
-                                                    contentDescription = "Icon Beranda Bottom Bar",
-                                                    tint = if (mainViewModel.currentRoute.value == "article") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                                Text(
-                                                    text = "Article",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = if (mainViewModel.currentRoute.value == "article") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                            }
-                                        }
-                                    }
-                                    //ITEM 5
-                                    Box(modifier = Modifier
-                                        .fillMaxWidth()
-                                        .weight(1f)
-                                        .height(180.dp)
-                                    ) {
-                                        Column {
-                                            Spacer(modifier = Modifier.height(36.dp))
-
-                                            Column(
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .background(
-                                                        if (mainViewModel.currentRoute.value == "community") Color(
-                                                            0xFF3F4E3E
-                                                        ) else Color.White
-                                                    )
-                                                    .clickable {
-                                                        navController.navigate("community")
-                                                    }
-                                                ,
-                                                horizontalAlignment = Alignment.CenterHorizontally,
-                                                verticalArrangement = Arrangement.Center
-                                            )
-                                            {
-                                                Icon(
-                                                    modifier = Modifier.size(24.dp),
-                                                    painter = painterResource(id = R.drawable.icon_community),
-                                                    contentDescription = "Icon Beranda Bottom Bar",
-                                                    tint = if (mainViewModel.currentRoute.value == "community") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                                Text(
-                                                    text = "Community",
-                                                    style = MaterialTheme.typography.bodySmall,
-                                                    color = if (mainViewModel.currentRoute.value == "community") Color.White else Color(0xFF3F4E3E)
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
+                            composable("track_bin") {
+                                TrackBinScreen(navController = navController)
                             }
                         }
                     }
-                ) {
-                    NavHost(
-                        modifier = Modifier.padding(it),
-                        navController = navController,
-                        startDestination = "home"
-                    ) {
-                        composable("home") {
-                            HomeScreen(navController = navController)
-                        }
-                        composable("login") {
-                            LoginScreen(navController = navController)
-                        }
 
-                        composable("register") {
-                            RegisterScreen(navController = navController)
-                        }
-                        composable("scan") {
-                            ScanScreen(navController = navController)
-                        }
-                        composable("article") {
-                            ArticleScreen(navController = navController)
-                        }
-                        composable("community") {
-                            CommunityScreen(navController = navController)
-                        }
-
-                        composable("track_bin") {
-                            TrackBinScreen(navController = navController)
-                        }
+                    Box(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 72.dp), contentAlignment = Alignment.BottomCenter){
+                        AsyncImage(modifier =Modifier.size(86.dp).clickable {
+                            navController.navigate("track_bin")
+                        }, model = R.drawable.icon_track_bin, contentDescription = "")
                     }
+
                 }
+
+
             }
         }
     }

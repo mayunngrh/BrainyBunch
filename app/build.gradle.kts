@@ -81,4 +81,8 @@ dependencies {
     implementation("androidx.compose.foundation:foundation:1.5.0")
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("com.google.accompanist:accompanist-placeholder-material:0.30.0")
+
+    //Bottom Navigation
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation("androidx.compose.material:material:1.7.6")
 }
