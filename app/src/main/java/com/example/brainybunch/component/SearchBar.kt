@@ -35,6 +35,7 @@ import com.example.brainybunch.ui.theme.poppinsFontFamily
 
 @Composable
 fun SearchBar(
+    modifier: Modifier,
     hint: String,
     onValueChange: (String) -> Unit,
     value: String,
@@ -47,10 +48,11 @@ fun SearchBar(
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(100))
-            .background(Color.White)
+        modifier = modifier
+//                Modifier
+//            .fillMaxWidth()
+//            .clip(RoundedCornerShape(100))
+//            .background(Color.White)
     ) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {

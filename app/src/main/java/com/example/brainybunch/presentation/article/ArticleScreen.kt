@@ -74,7 +74,15 @@ fun ArticleScreen(
             ) {
                 Spacer(modifier = Modifier.height(64.dp))
                 //Search Bar
-                SearchBar(hint = "Search", onValueChange = { query = it }, value = query)
+                SearchBar(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(100))
+                        .background(Color.White),
+                    hint = "Search",
+                    onValueChange = { query = it },
+                    value = query
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -101,7 +109,10 @@ fun ArticleScreen(
             }
         }
 
-        Column(Modifier.fillMaxSize().padding(24.dp)) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp)) {
             ///ARTICLE SECTIION
             Text(
                 text = "Article", style = MaterialTheme.typography.bodyMedium,
