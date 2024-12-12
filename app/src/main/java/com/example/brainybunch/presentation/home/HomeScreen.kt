@@ -22,6 +22,8 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +45,7 @@ fun HomeScreen(
     navController: NavController
 ) {
     val viewModel = hiltViewModel<HomeViewModel>()
+    val user by viewModel.user.collectAsState()
 
     val wasteData = listOf(0f, 2f, 5f, 4f, 3f, 6f)
 
@@ -89,7 +92,7 @@ fun HomeScreen(
                     Column(horizontalAlignment = Alignment.End) {
                         // Nama
                         Text(
-                            text = "Hi, Sabrina", style = MaterialTheme.typography.bodyMedium,
+                            text = "Hi, " + user?.name, style = MaterialTheme.typography.bodyMedium,
                             fontSize = 24.sp,
                             textAlign = TextAlign.Right,
                             color = Color.White,
