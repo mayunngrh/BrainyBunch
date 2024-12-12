@@ -16,6 +16,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -49,7 +51,7 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(450.dp)
+                .height(480.dp)
                 .clip(RoundedCornerShape(bottomEnd = 86.dp))
                 .background(Color(0xFF3F4E3E))
         ) {
@@ -97,6 +99,13 @@ fun HomeScreen(
                             fontSize = 12.sp,
                             color = Color.White
                         )
+
+                        Button(colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Color(0xFF3F4E3E)
+                        ), onClick = { /*TODO*/ }) {
+                            Text(text = "Logout", modifier = Modifier.padding(horizontal = 24.dp))
+                        }
                     }
                 }
 

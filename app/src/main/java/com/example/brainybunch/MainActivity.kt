@@ -51,6 +51,7 @@ import com.example.brainybunch.presentation.home.HomeScreen
 import com.example.brainybunch.presentation.login.LoginScreen
 import com.example.brainybunch.presentation.register.RegisterScreen
 import com.example.brainybunch.presentation.scan.ScanScreen
+import com.example.brainybunch.presentation.splash.SplashScreen
 import com.example.brainybunch.presentation.track_bin.TrackBinScreen
 import com.example.brainybunch.ui.theme.BrainyBunchTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -93,15 +94,21 @@ class MainActivity : ComponentActivity() {
 
                     Scaffold(containerColor = Color.Transparent,
                         bottomBar = {
-                            BottomNavBar()
+                            if(mainViewModel.showBottomBar.value){
+                                BottomNavBar()
+                            }
                         }
                     ) {
 
                         NavHost(
                             modifier = Modifier.padding(it),
                             navController = navController,
-                            startDestination = "home"
+                            startDestination = "splash"
                         ) {
+                            composable("splash") {
+                                SplashScreen(navController = navController)
+                            }
+
                             composable("home") {
                                 HomeScreen(navController = navController)
                             }
@@ -128,14 +135,15 @@ class MainActivity : ComponentActivity() {
                         }
                     }
 
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 72.dp), contentAlignment = Alignment.BottomCenter){
-                        AsyncImage(modifier =Modifier.size(86.dp).clickable {
-                            navController.navigate("track_bin")
-                        }, model = R.drawable.icon_track_bin, contentDescription = "")
+                    if(mainViewModel.showBottomBar.value){
+                        Box(modifier = Modifier
+                            .fillMaxSize()
+                            .padding(bottom = 72.dp), contentAlignment = Alignment.BottomCenter){
+                            AsyncImage(modifier =Modifier.size(86.dp).clickable {
+                                navController.navigate("track_bin")
+                            }, model = R.drawable.icon_track_bin, contentDescription = "")
+                        }
                     }
-
                 }
 
 
