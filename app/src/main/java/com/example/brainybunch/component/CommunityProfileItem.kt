@@ -42,7 +42,7 @@ fun CommunityProfileItem(){
                 //COMUNITY Photo
                 AsyncImage(
                     modifier = Modifier
-                        .size(62.dp)
+                        .size(66.dp)
                         .clip(CircleShape),
                     model = R.drawable.dummy_community_profile,
                     contentDescription = "",

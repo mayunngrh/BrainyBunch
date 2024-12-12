@@ -42,6 +42,7 @@ import coil.compose.AsyncImage
 import com.example.brainybunch.R
 import com.example.brainybunch.component.ArticleItem
 import com.example.brainybunch.component.CategoryItem
+import com.example.brainybunch.component.CommunityActivityItem
 import com.example.brainybunch.component.CommunityProfileItem
 import com.example.brainybunch.component.RowArticleItem
 import com.example.brainybunch.component.ScreenHeader
@@ -74,7 +75,10 @@ fun CommunityScreen(
 
 
                 ////////////////Search Bar ////////////////////
-                Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(horizontal = 24.dp)) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                ) {
                     SearchBar(
                         modifier = Modifier
                             .weight(1f)
@@ -156,10 +160,11 @@ fun CommunityScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             //Categori Row
-            Row (
+            Row(
                 Modifier
                     .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())) {
+                    .horizontalScroll(rememberScrollState())
+            ) {
                 Spacer(modifier = Modifier.width(12.dp))
                 CategoryItem()
                 CategoryItem()
@@ -172,10 +177,12 @@ fun CommunityScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            //Community Detail Item
-            Box(modifier = Modifier.fillMaxWidth().height(400.dp).background(Color.White)) {
+            //Community Activity Item
+            CommunityActivityItem()
+            CommunityActivityItem()
+            CommunityActivityItem()
+            CommunityActivityItem()
 
-            }
 
             Spacer(modifier = Modifier.height(80.dp))
 
