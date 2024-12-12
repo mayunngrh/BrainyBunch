@@ -1,5 +1,8 @@
 package com.example.brainybunch.presentation.register
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val auth: FirebaseAuth,
-    private val db: FirebaseFirestore
+    private val db: FirebaseFirestore,
+    private val dataStore: DataStore<Preferences>
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<MyState>(MyState.Idle)
@@ -49,6 +53,7 @@ class RegisterViewModel @Inject constructor(
                     _state.value = MyState.Success
                     val user = User(name)
                     saveUserData(user)
+                    saveUID()
                 } else {
                     _state.value = MyState.Error(it.exception?.message ?: "Registrasi Gagal")
                 }
@@ -58,5 +63,19 @@ class RegisterViewModel @Inject constructor(
 
     fun resetState(){
         _state.value = MyState.Idle
+    }
+
+    fun saveUID() {
+        // Ensure that `auth.currentUser?.uid` is not null
+        val currentUID = auth.currentUser?.uid ?: return
+        println("CHECK currentUID sebelum save: " + currentUID)
+        // Use `viewModelScope.launch` to ensure we're in a coroutine
+        viewModelScope.launch {
+            dataStore.edit { preferences ->
+                preferences[UID] = currentUID // Save the UID in DataStore
+                println("CHECK currentUID setelah save: " + currentUID)
+
+            }
+        }
     }
 }

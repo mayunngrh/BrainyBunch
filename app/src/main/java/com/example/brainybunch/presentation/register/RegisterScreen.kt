@@ -241,7 +241,7 @@ fun RegisterScreen(
                         Text(text = "Success")
                     },
                     text = {
-                        Text(text = "Berhasil melakukan pendaftaran. Mohon Tunggu Sebentar!")
+                        Text(text = "Register successful. Please wait!")
                     }
                 )
                 LaunchedEffect(Unit) {

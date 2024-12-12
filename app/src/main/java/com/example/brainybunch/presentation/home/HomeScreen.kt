@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.brainybunch.R
@@ -41,7 +42,10 @@ import com.example.brainybunch.component.TrackingWasteProgress
 fun HomeScreen(
     navController: NavController
 ) {
+    val viewModel = hiltViewModel<HomeViewModel>()
+
     val wasteData = listOf(0f, 2f, 5f, 4f, 3f, 6f)
+
 
     Column(
         Modifier
@@ -103,7 +107,10 @@ fun HomeScreen(
                         Button(colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
                             contentColor = Color(0xFF3F4E3E)
-                        ), onClick = { /*TODO*/ }) {
+                        ), onClick = {
+                            viewModel.logout()
+                            navController.navigate("login")
+                        }) {
                             Text(text = "Logout", modifier = Modifier.padding(horizontal = 24.dp))
                         }
                     }

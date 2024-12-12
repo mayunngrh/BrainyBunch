@@ -11,13 +11,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,12 +41,15 @@ import coil.compose.AsyncImage
 import com.example.brainybunch.R
 import com.example.brainybunch.component.HintPasswordField
 import com.example.brainybunch.component.HintTextField
+import com.example.brainybunch.component.MyState
+import kotlinx.coroutines.delay
 
 @Composable
 fun LoginScreen(
     navController: NavController
 ) {
     val viewModel = hiltViewModel<LoginViewModel>()
+    val state by viewModel.state.collectAsState()
     var email by remember {
         mutableStateOf("")
     }
@@ -119,7 +126,7 @@ fun LoginScreen(
                                 .fillMaxWidth()
                                 .height(64.dp),
                             shape = RoundedCornerShape(24.dp),
-                            onClick = { /*TODO*/ },
+                            onClick = { viewModel.login(email, pass) },
                             colors = ButtonDefaults.buttonColors(Color(0xFF3DC53A))
                         ) {
                             Text(
@@ -169,6 +176,67 @@ fun LoginScreen(
                     contentDescription = "",
                 )
 
+            }
+        }
+    }
+
+    //LOADING HANDLE
+    Box(modifier = Modifier.fillMaxSize()) {
+        when (state) {
+            is MyState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Color.Gray.copy(alpha = 0.4f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(modifier = Modifier.size(64.dp))
+                }
+            }
+
+            is MyState.Success -> {
+                AlertDialog(
+                    onDismissRequest = { },
+                    confirmButton = {
+                    },
+                    title = {
+                        Text(text = "Success")
+                    },
+                    text = {
+                        Text(text = "Login successful. Please Wait!")
+                    }
+                )
+                LaunchedEffect(Unit) {
+                    delay(2000)
+                    navController.navigate("home")
+                }
+
+            }
+
+            is MyState.Error -> {
+                val errorMessage = (state as MyState.Error).message
+                AlertDialog(
+                    onDismissRequest = { },
+                    confirmButton = {
+                        Button(
+                            onClick = { viewModel.resetState() },
+                            colors = ButtonDefaults.buttonColors(
+                                Color(0xFF3F4E3E)
+                            )
+                        ) {
+                            Text("OK")
+                        }
+                    },
+                    title = {
+                        Text(text = "Error")
+                    },
+                    text = {
+                        Text(text = errorMessage ?: "Unknown error occurred.")
+                    }
+                )
+            }
+
+            else -> { //
             }
         }
     }
