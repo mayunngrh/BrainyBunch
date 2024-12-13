@@ -1,6 +1,7 @@
 package com.example.brainybunch.presentation.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -141,21 +142,27 @@ fun HomeScreen(
             ) {
                 //ITEM FEATURE 1
                 FeatureCircle(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f).clickable {
+                        navController.navigate("scan")
+                    },
                     model = R.drawable.icon_scan_feature,
                     text = "Scan"
                 )
 
                 //ITEM FEATURE 2
                 FeatureCircle(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f).clickable {
+                                                             navController.navigate("track_bin")
+                    },
                     model = R.drawable.icon_track_feature,
                     text = "Track"
                 )
 
                 //ITEM FEATURE 3
                 FeatureCircle(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(1f).clickable {
+                        navController.navigate("article")
+                    },
                     model = R.drawable.icon_article_feature,
                     text = "Article"
                 )
