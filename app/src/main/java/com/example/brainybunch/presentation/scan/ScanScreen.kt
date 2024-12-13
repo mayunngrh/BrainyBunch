@@ -115,7 +115,7 @@ fun ScanScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(450.dp)
+                .height(300.dp)
                 .padding(24.dp)
                 .clip(RoundedCornerShape(24.dp))
         ) {
